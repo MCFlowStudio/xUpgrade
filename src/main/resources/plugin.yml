@@ -1,0 +1,14 @@
+name: xUpgrade
+version: '${project.version}'
+main: com.flow.xupgrade.Main
+api-version: '1.20'
+authors: [ MinHyeok ]
+
+commands:
+  장비강화:
+  upgrade:
+
+
+softdepend:
+  - Vault
+  - MMOItems

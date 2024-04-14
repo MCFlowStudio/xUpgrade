@@ -1,0 +1,30 @@
+message:
+  upgrade-success: '§f؃ §a{chance}% 확률을 뚫고 강화에 성공하였습니다.'
+  upgrade-notool: '؂ §4강화할 수 없는 도구입니다.'
+  upgrade-nomoney: '؂ §4골드가 부족합니다.'
+  upgrade-fail: '؂ §4강화를 실패하였습니다.'
+  upgrade-uuid: '؂ §4자신의 도구가 아닙니다. 도구를 파괴합니다.'
+
+items:
+  # 재료 (도구Type@도구ID)
+  TOOL@TOOL1:
+    # 강화 보상 (도구Type@도구ID)
+    output: TOOL@TOOL4
+    # 필요 금액 (정수)
+    cost: 15000
+    # 확률 (정수)
+    chance: 100
+    # 조건 (== 또는 && 사용 가능, 오류 발생 시 따움표를 붙여주세요)
+    condition: ==
+    # 조건 타입 (money 또는 item 으로 택 1)
+    type: money
+    # 조건 값
+    requirement:
+      money: 21000
+     #item: (도구Type@도구ID)
+    # 강화 성공 시 콘솔 권한으로 실행할 명령어 (%player% 로 플레이어 이름을 불러올 수 있습니다.)
+    command: broadcast test
+
+item:
+  upgrade:
+    customModelData: 1
