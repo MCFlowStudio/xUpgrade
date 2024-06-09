@@ -5,7 +5,7 @@ message:
   upgrade-fail: '؂ §4강화를 실패하였습니다.'
   upgrade-uuid: '؂ §4자신의 도구가 아닙니다. 도구를 파괴합니다.'
 
-items:
+upgrade_list:
   # 재료 (도구Type@도구ID)
   TOOL@TOOL1:
     # 강화 보상 (도구Type@도구ID)

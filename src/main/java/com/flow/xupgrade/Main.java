@@ -47,7 +47,7 @@ public final class Main extends JavaPlugin {
 
     public static Economy econ = null;
 
-    public static Logger logger = Logger.getLogger("Upgrade");
+    public static Logger logger = Logger.getLogger("xUpgrade");
 
     public static void playSound(Player player, Sound sound) {
         player.playSound(player.getLocation(), sound, 2.0F, 1.0F);
@@ -96,10 +96,10 @@ public final class Main extends JavaPlugin {
     @Override
     public void onEnable() {
         instance = this;
+        saveDefaultConfig();
         getCommand("장비강화").setExecutor((CommandExecutor)new Basic());
         getCommand("upgrade").setExecutor((CommandExecutor)new Upgrade());
         getServer().getPluginManager().registerEvents((Listener) new BukkitUpgradeInventory(null), (Plugin)this);
-        saveDefaultConfig();
         setUpEconomy();
         repeating();
         try {
@@ -159,26 +159,26 @@ public final class Main extends JavaPlugin {
                 ItemStack start = setItem(Material.COAL, "§a강화", 1);
                 ArrayList<String> loreList = new ArrayList<>();
 
-                String condition = getConfig().getString("items." + id + ".condition");
+                String condition = getConfig().getString("upgrade_list." + id + ".condition");
 
-                if (condition.equals("==") && "money".equals(getConfig().getString("items." + id + ".type"))) {
-                    int cost = getConfig().getInt("items." + id + ".requirement.money");
+                if (condition.equals("==") && "money".equals(getConfig().getString("upgrade_list." + id + ".type"))) {
+                    int cost = getConfig().getInt("upgrade_list." + id + ".requirement.money");
                     loreList.add("§7강화 비용 : §e" + cost + "원");
                 }
 
-                if (condition.equals("==") && "item".equals(getConfig().getString("items." + id + ".type"))) {
+                if (condition.equals("==") && "item".equals(getConfig().getString("upgrade_list." + id + ".type"))) {
                     MMOItemBridger requireItem = ItemData.getItemRequire(id);
-                    int requireItemAmount = getConfig().getInt("items." + id + ".requirement.item_amount");
+                    int requireItemAmount = getConfig().getInt("upgrade_list." + id + ".requirement.item_amount");
                     String requireName = MMOItemHook.findMMOItem(requireItem.getType(), requireItem.getId()).get().newBuilder().build().getItemMeta().getDisplayName();
                     loreList.add("§7필요 아이템 : §f" + requireName + " §7(" + requireItemAmount + "§7개)");
                 }
 
                 if (condition.equals("&&")) {
-                    int cost = getConfig().getInt("items." + id + ".requirement.money");
+                    int cost = getConfig().getInt("upgrade_list." + id + ".requirement.money");
                     loreList.add("§7강화 비용 : §e" + cost + "원");
 
                     MMOItemBridger requireItem = ItemData.getItemRequire(id);
-                    int requireItemAmount = getConfig().getInt("items." + id + ".requirement.item_amount");
+                    int requireItemAmount = getConfig().getInt("upgrade_list." + id + ".requirement.item_amount");
                     ItemMeta itemMeta = requireItem.build().getItemMeta();
                     String requireName;
                     if (itemMeta != null && itemMeta.hasDisplayName()) {
@@ -204,9 +204,9 @@ public final class Main extends JavaPlugin {
 
     public static Map<String, Object> getRequirements(String id) {
         if (hasItemData(id)) {
-            String condition = instance.getConfig().getString("items." + id + ".condition");
-            String type = instance.getConfig().getString("items." + id + ".type");
-            Map<String, Object> requirements = instance.getConfig().getConfigurationSection("items." + id + ".requirement").getValues(false);
+            String condition = instance.getConfig().getString("upgrade_list." + id + ".condition");
+            String type = instance.getConfig().getString("upgrade_list." + id + ".type");
+            Map<String, Object> requirements = instance.getConfig().getConfigurationSection("upgrade_list." + id + ".requirement").getValues(false);
             requirements.put("condition", condition);
             requirements.put("type", type);
             return requirements;
